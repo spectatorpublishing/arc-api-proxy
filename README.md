@@ -3,7 +3,7 @@
 ### Development:
 
 	go get github.com/codegangsta/gin
-	gin -p 5000
+	gin -p 8080
 
 This above will run the application at port 5000
 
@@ -18,41 +18,17 @@ To run the binary file, run:
 	export PORT=8080 && ./arc-api-proxy
 
 For the app to work correctly, please ensure you fill out the ``.env`` with the correct environment variable. It will use the following by default if no environment variable given.
-
-	MONGO_URL=mongodb://localhost:27017
-
-You can change the port to the one your prefer.
-
-### Seed User:
-In Mongo console, run
 ```
-use database_base_name
-db.users.insert({"access_token": "test"})
+	ARC_API_URL="https://api.spectator.arcpublishing.com"
+	ARC_API_USERNAME="spectator"
+	ARC_API_PASSWORD="password"
 ```
 
+### Build Docker Image/Deployment
 
-TODOS:
-
-Add ability to configure more Mongodb settings.
-
-### Usage:
-
-Currently, only one endpoint functions and you can make a sample request to see if everything is running
-
-	POST   http://localhost:5000/events?name=chicago
-
-Sample Response:
-
-	{
-	  "id": "56ae2b503d10891dced23e05",
-	  "event_date": "0001-01-01T00:00:00Z",
-	  "city": "",
-	  "name": "chicago",
-	  "country": "",
-	  "weather_url": "",
-	  "updated_at": "2016-01-31T10:42:08.44106907-05:00",
-	  "created_at": "2016-01-31T10:42:08.44106907-05:00"
-	}
+```
+docker build -t columbiaspectator/arc-api-proxy .
+```
 
 ### Dependency Vendoring
 
@@ -90,11 +66,3 @@ godebug will generate a binary named ``yourprojectname.debug``, run that binary 
 For example,
 
 	PORT=8080 ./arc-api-proxy.debug
-
-### Dealing with Mongodb
-
-Enter the console by typing ``mongo`` in terminal
-
-The following command allows you to rename field/column
-
-	db.events.update({},{ $rename: { 'current_field_name': 'new_name'}}, { multi: true })
