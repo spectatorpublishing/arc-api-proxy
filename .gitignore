@@ -1,0 +1,7 @@
+gin-bin
+*.debug
+release
+.env
+env
+tmp
+dump.rdb

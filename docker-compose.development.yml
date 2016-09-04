@@ -1,0 +1,14 @@
+haproxy:
+  image: tutum/haproxy
+  links:
+   - web
+  ports:
+   - '80:80'
+web:
+  build: .
+  command: 'bash -c ''/go/bin/arc-api-proxy'''
+  working_dir: /go/src/arc-api-proxy
+  environment:
+    PORT: 8080
+  ports:
+    - '8080'
