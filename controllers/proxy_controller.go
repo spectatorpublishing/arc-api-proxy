@@ -1,8 +1,6 @@
 package controllers
 
 import (
-	// "encoding/json"
-	// "arc-api-proxy/helpers"
 	"bytes"
 	"io"
 	"log"
@@ -16,10 +14,8 @@ func StreamToByte(stream io.Reader) []byte {
 	return buf.Bytes()
 }
 
-// Returns the apiUser object
 func ProxyArcApi(w http.ResponseWriter, r *http.Request) {
 
-	// return
 	var username string = os.Getenv("ARC_API_USERNAME")
 	var passwd string = os.Getenv("ARC_API_PASSWORD")
 	client := &http.Client{}
@@ -31,16 +27,9 @@ func ProxyArcApi(w http.ResponseWriter, r *http.Request) {
 		log.Fatal(err)
 	}
 
-	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
+	w.Header().Set("Content-Type", resp.Header.Get("Content-Type"))
 	w.Header().Set("Access-Control-Allow-Origin", "*")
-	w.WriteHeader(http.StatusOK)
+	w.WriteHeader(resp.StatusCode)
 	w.Write(StreamToByte(resp.Body))
-	// bodyText, err := ioutil.ReadAll(resp.Body)
-	// s := string(bodyText)
-	// return s
-
-	// if err := helpers.RenderJson(w, http.StatusCreated, map[string]string{"test": "works"}); err != nil {
-	// 	panic(err)
-	// }
 
 }
