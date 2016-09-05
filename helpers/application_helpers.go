@@ -2,15 +2,15 @@ package helpers
 
 import (
 	"encoding/json"
-	"math/rand"
+	// "math/rand"
 	"net/http"
-	"time"
+	// "time"
 )
 
-//Wrapper function for RenderJson
-func RenderJsonErr(w http.ResponseWriter, statusCode int, text string) error {
-	return RenderJson(w, statusCode, JsonErr{StatusCode: statusCode, Error: text})
-}
+// //Wrapper function for RenderJson
+// func RenderJsonErr(w http.ResponseWriter, statusCode int, text string) error {
+// 	return RenderJson(w, statusCode, JsonErr{StatusCode: statusCode, Error: text})
+// }
 
 func RenderJson(w http.ResponseWriter, statusCode int, object interface{}) error {
 
