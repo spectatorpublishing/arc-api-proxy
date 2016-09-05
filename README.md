@@ -1,4 +1,4 @@
-# GoRestApi
+# Arc API Proxy
 	
 ### Development:
 
@@ -26,8 +26,15 @@ For the app to work correctly, please ensure you fill out the ``.env`` with the 
 
 ### Build Docker Image/Deployment
 
+#### Build Image
 ```
 docker build -t columbiaspectator/arc-api-proxy .
+```
+
+#### Run Image
+```
+docker run -d -p 80:8080 -e PORT=8080 -e ARC_API_URL="https://api.spectator.arcpublishing.com" -e ARC_API_USERNAME="spectator" -e ARC_API_PASSWORD="password" columbiaspectator/arc-api-proxy
+
 ```
 
 ### Dependency Vendoring
