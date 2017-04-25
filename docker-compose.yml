@@ -11,7 +11,7 @@ services:
       - '8080'
     restart: always
   lb:
-    image: dockercloud/haproxy
+    image: dockercloud/haproxy:1.6.5
     links:
       - web
     volumes:
