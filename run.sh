@@ -24,4 +24,4 @@ if [ -z "$ARC_API_PASSWORD" ]; then
 fi
 
 # Run server
-docker-compose up -d >> ~/log.txt 2>&1
+docker-compose up -d 
