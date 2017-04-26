@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 set -e
 
@@ -8,17 +8,20 @@ if [ $# -ne 0 ]; then
 	exit 1
 fi
 
-# Require secure entry of password
-read -sp "Enter the API password for user spectator: " api_pass
-echo ""
+# Export necessary environment variables
+if [ -z "$ARC_API_USERNAME" ]; then
+	export ARC_API_USERNAME="spectator"
+fi
 
-# Run the docker daemon
-IP="$(ifconfig | grep inet | grep -v inet6 | grep -v 127.0.0.1 | awk 'NR==1{print $2}')"
-echo "Starting proxy on ${IP}:8080"
-docker run -d \
-	-p 80:8080 \
-	-e PORT=8080 \
-	-e ARC_API_URL="https://api.spectator.arcpublishing.com" \
-	-e ARC_API_USERNAME="spectator" \
-	-e ARC_API_PASSWORD="$api_pass" \
-	spectech/arc-api-proxy
+if [ -z "$ARC_API_URL" ]; then
+	export ARC_API_URL="https://api.spectator.arcpublishing.com"
+fi
+# Require secure entry of password
+if [ -z "$ARC_API_PASSWORD" ]; then
+	read -sp "Enter the API password for user spectator: " ARC_API_PASSWORD
+	export ARC_API_PASSWORD
+	echo ""
+fi
+
+# Run server
+docker-compose up
